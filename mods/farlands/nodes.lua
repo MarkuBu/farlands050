@@ -215,7 +215,7 @@ minetest.register_node(":default:big_pine_sapling", {
 	end,
 })
 
---~ default.register_chest("bamboo_chest", {
+--~ default.register_chest("farlands:bamboo_chest", {
 	--~ description = "Bamboo Chest",
 	--~ tiles = {
 		--~ "default_bamboo_chest_top.png",

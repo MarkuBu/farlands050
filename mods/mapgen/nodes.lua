@@ -1,4 +1,3 @@
-mapgen = {}
 
 --functions
 function mapgen.register_fern(name, desc, texnumber)

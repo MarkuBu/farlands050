@@ -1288,25 +1288,26 @@ minetest.register_node("mapgen:aloe_vera", {
 	walkable = false,
 })
 
-minetest.register_node("mapgen:cattail", {
-	description = "Cattail",
-	drawtype = "plantlike",
-	tiles = {"mapgen_cattail.png"},
-	paramtype = "light",
-	is_ground_content = false,
-	buildable_to = true,
-	sunlight_propagates = true,
-	inventory_image = "mapgen_cattail.png",
-	visual_scale = 2,
-	wield_scale = {x=0.5, y=0.5, z=0.5},
-	groups = {snappy=3, flammable=1, attatched_node=1, flora=1},
-	sounds = default.node_sound_leaves_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.3, -0.5, -0.3, 0.3, 1, 0.3}
-	},
-	walkable = false,
-})
+--~ minetest.register_node("mapgen:cattail", {
+	--~ description = "Cattail",
+	--~ drawtype = "plantlike",
+	--~ tiles = {"mapgen_cattail.png"},
+	--~ paramtype = "light",
+	--~ visual_scale = 1.69,
+	--~ is_ground_content = false,
+	--~ buildable_to = true,
+	--~ sunlight_propagates = true,
+	--~ inventory_image = "mapgen_cattail.png",
+	--~ visual_scale = 2,
+	--~ wield_scale = {x=0.5, y=0.5, z=0.5},
+	--~ groups = {snappy=3, flammable=1, attatched_node=1, flora=1},
+	--~ sounds = default.node_sound_leaves_defaults(),
+	--~ selection_box = {
+		--~ type = "fixed",
+		--~ fixed = {-0.3, -0.5, -0.3, 0.3, 1, 0.3}
+	--~ },
+	--~ walkable = false,
+--~ })
 
 minetest.register_node("mapgen:lavender_flower", {
 	description = "Lavender Flower",
@@ -1450,7 +1451,7 @@ minetest.register_node("mapgen:dead_grass_1", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
 	},
 	walkable = false,
-	drop = "drop:dead_grass_5",
+	drop = "mapgen:dead_grass_5",
 })
 
 minetest.register_node("mapgen:dead_grass_2", {
@@ -1469,7 +1470,7 @@ minetest.register_node("mapgen:dead_grass_2", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
 	},
 	walkable = false,
-	drop = "drop:dead_grass_5",
+	drop = "mapgen:dead_grass_5",
 })
 
 minetest.register_node("mapgen:dead_grass_3", {
@@ -1488,7 +1489,7 @@ minetest.register_node("mapgen:dead_grass_3", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
 	},
 	walkable = false,
-	drop = "drop:dead_grass_5",
+	drop = "mapgen:dead_grass_5",
 })
 
 minetest.register_node("mapgen:dead_grass_4", {
@@ -1507,7 +1508,7 @@ minetest.register_node("mapgen:dead_grass_4", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
 	},
 	walkable = false,
-	drop = "drop:dead_grass_5",
+	drop = "mapgen:dead_grass_5",
 })
 
 minetest.register_node("mapgen:dead_grass_5", {
@@ -1845,6 +1846,55 @@ minetest.register_node(":default:sand_with_kelp2", {
 	end
 })
 
+minetest.register_node("mapgen:cattail", {
+	description = "Cattail",
+	drawtype = "plantlike_rooted",
+	tiles = {"default_dirt.png"},
+	special_tiles = {{name = "mapgen_cattail3.png", tileable_vertical = true}},
+	inventory_image = "mapgen_cattail3.png",
+	paramtype2 = "leveled",
+	groups = {snappy = 3},
+	node_placement_prediction = "",
+	waving = 1,
+	visual_scale = 2,
+	on_place = function(itemstack, placer, pointed_thing)
+		-- Call on_rightclick if the pointed node defines it
+		if pointed_thing.type == "node" and placer and
+				not placer:get_player_control().sneak then
+			local node_ptu = minetest.get_node(pointed_thing.under)
+			local def_ptu = minetest.registered_nodes[node_ptu.name]
+			if def_ptu and def_ptu.on_rightclick then
+				return def_ptu.on_rightclick(pointed_thing.under, node_ptu, placer,
+					itemstack, pointed_thing)
+			end
+		end
+
+		local pos = pointed_thing.above
+		local height = math.random(4, 6)
+		local pos_top = {x = pos.x, y = pos.y + height, z = pos.z}
+		local node_top = minetest.get_node(pos_top)
+		local def_top = minetest.registered_nodes[node_top.name]
+		local player_name = placer:get_player_name()
+
+		if def_top and def_top.liquidtype == "source" and
+				minetest.get_item_group(node_top.name, "water") > 0 then
+			if not minetest.is_protected(pos, player_name) and
+					not minetest.is_protected(pos_top, player_name) then
+				minetest.set_node(pos, {name = "mapgen:cattail",
+					param2 = height * 16})
+				if not (creative and creative.is_enabled_for
+						and creative.is_enabled_for(player_name)) then
+					itemstack:take_item()
+				end
+			else
+				minetest.chat_send_player(player_name, "Node is protected")
+				minetest.record_protection_violation(pos, player_name)
+			end
+		end
+
+		return itemstack
+	end
+})
 
 minetest.register_node("mapgen:stone_with_ammonite", {
 	description = "Stone with Ammonite",
@@ -2177,63 +2227,63 @@ minetest.register_craftitem("mapgen:crystal_shard", {
 })
 
 
---torch glow
-minetest.register_abm({
-	nodenames = {"default:torch", "default:torch_ceiling",},
-	interval = 5,
-	chance = 1,
-	action = function(pos, node)
-		if minetest.get_timeofday() <= 0.6 and minetest.get_timeofday() >= 0.2 and pos.y >= -20 then
-		return
-		end
-		minetest.add_particle({
-			pos = {x=pos.x, y=pos.y+0.1, z=pos.z},
-			velocity = {x=0, y=0, z=0},
-			acceleration = {x=0, y=0, z=0},
-			expirationtime = 5,
-			size = 15,
-			collisiondetection = false,
-			collisionremoval = false,
-			vertical = true,
-			texture = "mapgen_glow.png",
-			animation = {type = "vertical_frames", aspect_w = 32, aspect_h = 32, length = 0.20},
-			glow = 9
-		})
-	end
-})
+--~ --torch glow
+--~ minetest.register_abm({
+	--~ nodenames = {"default:torch", "default:torch_ceiling",},
+	--~ interval = 5,
+	--~ chance = 1,
+	--~ action = function(pos, node)
+		--~ if minetest.get_timeofday() <= 0.6 and minetest.get_timeofday() >= 0.2 and pos.y >= -20 then
+		--~ return
+		--~ end
+		--~ minetest.add_particle({
+			--~ pos = {x=pos.x, y=pos.y+0.1, z=pos.z},
+			--~ velocity = {x=0, y=0, z=0},
+			--~ acceleration = {x=0, y=0, z=0},
+			--~ expirationtime = 5,
+			--~ size = 15,
+			--~ collisiondetection = false,
+			--~ collisionremoval = false,
+			--~ vertical = true,
+			--~ texture = "mapgen_glow.png",
+			--~ animation = {type = "vertical_frames", aspect_w = 32, aspect_h = 32, length = 0.20},
+			--~ glow = 9
+		--~ })
+	--~ end
+--~ })
 
-minetest.register_abm({
-	nodenames = {"default:torch_wall"},
-	interval = 5,
-	chance = 1,
-	action = function(pos, node)
-		if minetest.get_timeofday() <= 0.6 and minetest.get_timeofday() >= 0.2 and pos.y >= -20  then
-		return
-		end
-		local dir = minetest.facedir_to_dir(node.param2)
-		local particle_pos = {x=pos.x-0.22*dir.z*1.2, y=pos.y+0.1, z=pos.z-0.18*dir.x*1.2}
-		if dir.x == 0 and dir.z == 0 then
-		particle_pos = {x=pos.x, y=pos.y+0.1, z=pos.z+0.2}
-		elseif dir.x == -1 and dir.z == 0 then
-		particle_pos = {x=pos.x-0.15, y=pos.y+0.1, z=pos.z}
-		elseif dir.x == 0 and dir.z == -1 then
-		particle_pos = {x=pos.x+0.15, y=pos.y+0.1, z=pos.z}
-		end
-		minetest.add_particle({
-			pos = particle_pos,
-			velocity = {x=0, y=0, z=0},
-			acceleration = {x=0, y=0, z=0},
-			expirationtime = 5,
-			size = 15,
-			collisiondetection = false,
-			collisionremoval = false,
-			vertical = true,
-			texture = "mapgen_glow.png",
-			animation = {type = "vertical_frames", aspect_w = 32, aspect_h = 32, length = 0.20},
-			glow = 9
-		})
-	end
-})
+--~ minetest.register_abm({
+	--~ nodenames = {"default:torch_wall"},
+	--~ interval = 5,
+	--~ chance = 1,
+	--~ action = function(pos, node)
+		--~ if minetest.get_timeofday() <= 0.6 and minetest.get_timeofday() >= 0.2 and pos.y >= -20  then
+		--~ return
+		--~ end
+		--~ local dir = minetest.facedir_to_dir(node.param2)
+		--~ local particle_pos = {x=pos.x-0.22*dir.z*1.2, y=pos.y+0.1, z=pos.z-0.18*dir.x*1.2}
+		--~ if dir.x == 0 and dir.z == 0 then
+		--~ particle_pos = {x=pos.x, y=pos.y+0.1, z=pos.z+0.2}
+		--~ elseif dir.x == -1 and dir.z == 0 then
+		--~ particle_pos = {x=pos.x-0.15, y=pos.y+0.1, z=pos.z}
+		--~ elseif dir.x == 0 and dir.z == -1 then
+		--~ particle_pos = {x=pos.x+0.15, y=pos.y+0.1, z=pos.z}
+		--~ end
+		--~ minetest.add_particle({
+			--~ pos = particle_pos,
+			--~ velocity = {x=0, y=0, z=0},
+			--~ acceleration = {x=0, y=0, z=0},
+			--~ expirationtime = 5,
+			--~ size = 15,
+			--~ collisiondetection = false,
+			--~ collisionremoval = false,
+			--~ vertical = true,
+			--~ texture = "mapgen_glow.png",
+			--~ animation = {type = "vertical_frames", aspect_w = 32, aspect_h = 32, length = 0.20},
+			--~ glow = 9
+		--~ })
+	--~ end
+--~ })
 
 --code taken from default
 

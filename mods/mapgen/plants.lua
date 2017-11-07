@@ -4,16 +4,17 @@ local function register_grass_decoration(offset, scale, length)
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass", "default:sand", "mapgen:dirt_with_leafygrass"},
 		sidelen = 16,
-		noise_params = {
-			offset = offset,
-			scale = scale,
-			spread = {x = 200, y = 200, z = 200},
-			seed = 329,
-			octaves = 3,
-			persist = 0.6
-		},
-		biomes = {"grassland", "grassland_dunes", "deciduous_forest",
-			"coniferous_forest", "coniferous_forest_dunes", "coniferous_forest_tall"},
+		fill_ratio = 0.15,
+		--~ noise_params = {
+			--~ offset = offset,
+			--~ scale = scale,
+			--~ spread = {x = 200, y = 200, z = 200},
+			--~ seed = 329,
+			--~ octaves = 3,
+			--~ persist = 0.6
+		--~ },
+		biomes = {"grassland", "grassland_dunes", "deciduous_forest", "deciduous_forest2",
+			"coniferous_forest", "coniferous_forest_dunes", "coniferous_forest_tall", "bamboo_forest"},
 		y_min = 1,
 		y_max = 31000,
 		decoration = "default:grass_" .. length,
@@ -25,14 +26,15 @@ local function register_dry_grass_decoration(offset, scale, length)
 		deco_type = "simple",
 		place_on = {"default:dirt_with_dry_grass"},
 		sidelen = 16,
-		noise_params = {
-			offset = offset,
-			scale = scale,
-			spread = {x = 200, y = 200, z = 200},
-			seed = 329,
-			octaves = 3,
-			persist = 0.6
-		},
+		fill_ratio = 0.2,
+		--~ noise_params = {
+			--~ offset = offset,
+			--~ scale = scale,
+			--~ spread = {x = 200, y = 200, z = 200},
+			--~ seed = 329,
+			--~ octaves = 3,
+			--~ persist = 0.6
+		--~ },
 		biomes = {"savanna"},
 		y_min = 1,
 		y_max = 31000,
@@ -45,15 +47,16 @@ local function register_jungle_grass_decoration(offset, scale, length)
 		deco_type = "simple",
 		place_on = {"mapgen:dirt_with_junglegrass", "default:dirt"},
 		sidelen = 16,
-		noise_params = {
-			offset = offset,
-			scale = scale,
-			spread = {x = 200, y = 200, z = 200},
-			seed = 329,
-			octaves = 3,
-			persist = 0.6
-		},
-		biomes = {"rainforest", "rainforest_swamp", "rainforest_ocean",},
+		fill_ratio = 0.2,
+		--~ noise_params = {
+			--~ offset = offset,
+			--~ scale = scale,
+			--~ spread = {x = 200, y = 200, z = 200},
+			--~ seed = 329,
+			--~ octaves = 3,
+			--~ persist = 0.6
+		--~ },
+		biomes = {"rainforest", "rainforest_swamp"},
 		y_min = 1,
 		y_max = 31000,
 		decoration = "mapgen:jungle_grass_" .. length,
@@ -171,7 +174,7 @@ minetest.register_decoration({
 	place_on = {"default:dirt_with_grass"},
 	sidelen = 6,
 	fill_ratio = 0.01,
-	biomes = {"grassland", "deciduous_forest", "deciduous_forest2"},
+	biomes = {"grassland", "deciduous_forest", "deciduous_forest2", "bamboo_forest"},
 	decoration = "mapgen:wild_oat",
 	height = 1,
 })
@@ -672,4 +675,63 @@ minetest.register_decoration({
 	decoration = "mapgen:stone_with_sea_grass",
 	param2 = 8,
 	param2_max = 16,
+})
+
+minetest.register_decoration({
+	deco_type = "simple",
+	place_on = {"default:dirt"},
+	place_offset_y = -1,
+	sidelen = 16,
+	noise_params = {
+		offset = 0.2,
+		scale = 0.1,
+		spread = {x = 200, y = 200, z = 200},
+		seed = 23443,
+		octaves = 5,
+		persist = 0.9
+	},
+	biomes = {
+		"taiga_ocean",
+		"snowy_grassland_ocean",
+		"grassland_ocean",
+		"coniferous_forest_ocean",
+		"deciduous_forest_ocean",
+		"sandstone_desert_ocean",
+		"cold_desert_ocean",
+		"bamboo_ocean",
+		"deciduous_forest_shore",
+		"deciduous_forest2_shore",
+		"deciduous_forest2_ocean",
+		"savanna_shore",
+		"rainforest_swamp",
+		},
+	y_min = 0,
+	y_max = 0,
+	flags = "force_placement",
+	decoration = "mapgen:cattail",
+	param2 = 16,
+	param2_max = 16,
+})
+-- Underground
+
+
+minetest.register_decoration({
+	deco_type = "simple",
+	place_on = "default:stone",
+	sidelen = 8,
+	--~ fill_ratio = 5,
+	noise_params = {
+		offset = 0.2,
+		scale = 0.01,
+		spread = {x = 200, y = 200, z = 200},
+		seed = 23454,
+		octaves = 5,
+		persist = 0.9
+	},
+	biomes = {"underground",},
+	y_min = -31000,
+	y_max = 31000,
+	decoration = "default:meselamp",
+	height = 1,
+	flags = "force_placement, all_ceilings",
 })

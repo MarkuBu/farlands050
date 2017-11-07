@@ -12,9 +12,8 @@ local seaplants = false
 --
 
 
-	minetest.clear_registered_decorations()
-dofile(mapgen.path.."/trees.lua")
-dofile(mapgen.path.."/plants.lua")
+minetest.clear_registered_decorations()
+
 
 --bamboo
 
@@ -434,15 +433,18 @@ minetest.register_decoration({
 	--~ end
 --~ end)
 
+dofile(mapgen.path.."/trees.lua")
+dofile(mapgen.path.."/plants.lua")
+
 --fruit
 if minetest.get_modpath("fruit") then
-fruit.register_ores()
+	fruit.register_ores()
 end
 
 if minetest.get_mapgen_params().mgname == "v6" then
 	--~ farming.register_mgv6_decorations()
-	--~ flowers.register_mgv6_decorations()
+	flowers.register_mgv6_decorations()
 else
 	--~ farming.register_mgv7_decorations()
-	--~ flowers.register_decorations()
+	flowers.register_decorations()
 end

@@ -1223,6 +1223,8 @@ minetest.register_node("default:grass_1", {
 		return ItemStack("default:grass_1 " ..
 			itemstack:get_count() - (1 - ret:get_count()))
 	end,
+	paramtype2 = "meshoptions",
+	place_param2 = 8,
 })
 
 for i = 2, 5 do
@@ -1245,6 +1247,8 @@ for i = 2, 5 do
 			type = "fixed",
 			fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, -3 / 16, 6 / 16},
 		},
+		paramtype2 = "meshoptions",
+		place_param2 = 8,
 	})
 end
 

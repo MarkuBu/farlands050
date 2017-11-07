@@ -1,7 +1,7 @@
 local pi = math.pi
 local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()
-local enable_respawn = minetest.settings:get_bool("enable_bed_respawn")
+local enable_respawn = minetest.setting_getbool("enable_bed_respawn")
 if enable_respawn == nil then
 	enable_respawn = true
 end
@@ -9,23 +9,20 @@ end
 -- Helper functions
 
 local function get_look_yaw(pos)
-	local rotation = minetest.get_node(pos).param2
-	if rotation > 3 then
-		rotation = rotation % 4 -- Mask colorfacedir values
-	end
-	if rotation == 1 then
-		return pi / 2, rotation
-	elseif rotation == 3 then
-		return -pi / 2, rotation
-	elseif rotation == 0 then
-		return pi, rotation
+	local n = minetest.get_node(pos)
+	if n.param2 == 1 then
+		return pi / 2, n.param2
+	elseif n.param2 == 3 then
+		return -pi / 2, n.param2
+	elseif n.param2 == 0 then
+		return pi, n.param2
 	else
-		return 0, rotation
+		return 0, n.param2
 	end
 end
 
 local function is_night_skip_enabled()
-	local enable_night_skip = minetest.settings:get_bool("enable_bed_night_skip")
+	local enable_night_skip = minetest.setting_getbool("enable_bed_night_skip")
 	if enable_night_skip == nil then
 		enable_night_skip = true
 	end
@@ -90,8 +87,10 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		local yaw, param2 = get_look_yaw(bed_pos)
 		player:set_look_horizontal(yaw)
 		local dir = minetest.facedir_to_dir(param2)
-		local p = {x = bed_pos.x + dir.x / 2, y = bed_pos.y, z = bed_pos.z + dir.z / 2}
+		local p = {x = bed_pos.x + dir.x / 2, y = bed_pos.y + 0.5, z = bed_pos.z + dir.z / 2}
+		print(dump(player:get_physics_override()))
 		player:set_physics_override(0, 0, 0)
+		print(dump(player:get_physics_override()))
 		player:setpos(p)
 		default.player_attached[name] = true
 		hud_flags.wielditem = false

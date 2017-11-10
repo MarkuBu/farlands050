@@ -1,18 +1,20 @@
 
+local grass_offset_modificator = tonumber(minetest.settings:get("grass_offset_modificator") or 0) * 0.01
+
 local function register_grass_decoration(offset, scale, length)
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:dirt_with_grass", "default:sand", "mapgen:dirt_with_leafygrass"},
 		sidelen = 16,
-		fill_ratio = 0.05,
-		--~ noise_params = {
-			--~ offset = offset,
-			--~ scale = scale,
-			--~ spread = {x = 200, y = 200, z = 200},
-			--~ seed = 329,
-			--~ octaves = 3,
-			--~ persist = 0.6
-		--~ },
+		--~ fill_ratio = 0.05,
+		noise_params = {
+			offset = offset + grass_offset_modificator,
+			scale = scale,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 329,
+			octaves = 3,
+			persist = 0.6
+		},
 		biomes = {"grassland", "grassland_dunes", "deciduous_forest", "deciduous_forest2",
 			"coniferous_forest", "coniferous_forest_dunes", "coniferous_forest_tall", "bamboo_forest"},
 		y_min = 1,
@@ -26,15 +28,15 @@ local function register_dry_grass_decoration(offset, scale, length)
 		deco_type = "simple",
 		place_on = {"default:dirt_with_dry_grass"},
 		sidelen = 16,
-		fill_ratio = 0.05,
-		--~ noise_params = {
-			--~ offset = offset,
-			--~ scale = scale,
-			--~ spread = {x = 200, y = 200, z = 200},
-			--~ seed = 329,
-			--~ octaves = 3,
-			--~ persist = 0.6
-		--~ },
+		--~ fill_ratio = 0.05,
+		noise_params = {
+			offset = offset + grass_offset_modificator,
+			scale = scale,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 329,
+			octaves = 3,
+			persist = 0.6
+		},
 		biomes = {"savanna"},
 		y_min = 1,
 		y_max = 31000,
@@ -48,14 +50,14 @@ local function register_jungle_grass_decoration(offset, scale, length)
 		place_on = {"mapgen:dirt_with_junglegrass", "default:dirt"},
 		sidelen = 16,
 		fill_ratio = 0.05,
-		--~ noise_params = {
-			--~ offset = offset,
-			--~ scale = scale,
-			--~ spread = {x = 200, y = 200, z = 200},
-			--~ seed = 329,
-			--~ octaves = 3,
-			--~ persist = 0.6
-		--~ },
+		noise_params = {
+			offset = offset + grass_offset_modificator,
+			scale = scale,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 329,
+			octaves = 3,
+			persist = 0.6
+		},
 		biomes = {"rainforest", "rainforest_swamp"},
 		y_min = 1,
 		y_max = 31000,
@@ -69,7 +71,7 @@ local function register_snow_grass_decoration(offset, scale, length)
 		place_on = {"default:dirt_with_snow",},
 		sidelen = 16,
 		noise_params = {
-			offset = offset,
+			offset = offset + grass_offset_modificator,
 			scale = scale,
 			spread = {x = 200, y = 200, z = 200},
 			seed = 329,
@@ -89,7 +91,7 @@ local function register_swamp_grass_decoration(offset, scale, length)
 		place_on = {"mapgen:dirt_with_swampgrass", "default:dirt"},
 		sidelen = 16,
 		noise_params = {
-			offset = offset,
+			offset = offset + grass_offset_modificator,
 			scale = scale,
 			spread = {x = 200, y = 200, z = 200},
 			seed = 329,

@@ -49,3 +49,8 @@ enable_stairs_replace_abm (Replace old stairs) bool false
 
 #    Use mesh nodes for leaves
 enable_mesh_leaves (Mesh Leaves) bool false
+
+#    Set amount of grass
+#    0 = Default in Minetest Game
+#    30 = Full grass
+grass_offset_modificator (Amount of grass) int 10

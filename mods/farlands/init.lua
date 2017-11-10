@@ -101,66 +101,66 @@ minetest.register_abm({
 })
 
 
-minetest.override_item("default:bush_leaves", {
-	drawtype = "mesh",
-	tiles = {"nodeboxtrees_bush_leaves.png"},
-	wield_scale = {x = 0.5, y = 0.5, z = 0.5},
-	mesh = "leaf.obj",
-	paramtype = "light",
-	waving = 2,
-})
+--~ minetest.override_item("default:bush_leaves", {
+	--~ drawtype = "mesh",
+	--~ tiles = {"nodeboxtrees_bush_leaves.png"},
+	--~ wield_scale = {x = 0.5, y = 0.5, z = 0.5},
+	--~ mesh = "leaf.obj",
+	--~ paramtype = "light",
+	--~ waving = 2,
+--~ })
 
-minetest.override_item("default:acacia_bush_leaves", {
-	drawtype = "mesh",
-	tiles = {"nodeboxtrees_acacia_leaves_simple.png"},
-	wield_scale = {x = 0.5, y = 0.5, z = 0.5},
-	mesh = "leaf.obj",
-	paramtype = "light",
-	waving = 2,
-})
+--~ minetest.override_item("default:acacia_bush_leaves", {
+	--~ drawtype = "mesh",
+	--~ tiles = {"nodeboxtrees_acacia_leaves_simple.png"},
+	--~ wield_scale = {x = 0.5, y = 0.5, z = 0.5},
+	--~ mesh = "leaf.obj",
+	--~ paramtype = "light",
+	--~ waving = 2,
+--~ })
 
-minetest.override_item("default:leaves", {
-	drawtype = "mesh",
-	tiles = {"nodeboxtrees_leaves.png"},
-	wield_scale = {x = 0.5, y = 0.5, z = 0.5},
-	mesh = "leaf.obj",
-	paramtype = "light",
-	waving = 2,
-})
+--~ minetest.override_item("default:leaves", {
+	--~ drawtype = "mesh",
+	--~ tiles = {"nodeboxtrees_leaves.png"},
+	--~ wield_scale = {x = 0.5, y = 0.5, z = 0.5},
+	--~ mesh = "leaf.obj",
+	--~ paramtype = "light",
+	--~ waving = 2,
+--~ })
 
-minetest.override_item("default:acacia_leaves", {
-	drawtype = "mesh",
-	tiles = {"nodeboxtrees_acacia_leaves.png"},
-	wield_scale = {x = 0.5, y = 0.5, z = 0.5},
-	mesh = "leaf.obj",
-	paramtype = "light",
-	waving = 2,
-})
+--~ minetest.override_item("default:acacia_leaves", {
+	--~ drawtype = "mesh",
+	--~ tiles = {"nodeboxtrees_acacia_leaves.png"},
+	--~ wield_scale = {x = 0.5, y = 0.5, z = 0.5},
+	--~ mesh = "leaf.obj",
+	--~ paramtype = "light",
+	--~ waving = 2,
+--~ })
 
 
-minetest.override_item("default:jungleleaves", {
-	drawtype = "mesh",
-	tiles = {"nodeboxtrees_jungleleaves.png"},
-	wield_scale = {x = 0.5, y = 0.5, z = 0.5},
-	mesh = "leaf.obj",
-	paramtype = "light",
-	waving = 2,
-})
+--~ minetest.override_item("default:jungleleaves", {
+	--~ drawtype = "mesh",
+	--~ tiles = {"nodeboxtrees_jungleleaves.png"},
+	--~ wield_scale = {x = 0.5, y = 0.5, z = 0.5},
+	--~ mesh = "leaf.obj",
+	--~ paramtype = "light",
+	--~ waving = 2,
+--~ })
 
-minetest.override_item("default:pine_needles", {
-	drawtype = "mesh",
-	tiles = {"nodeboxtrees_pine_needles.png"},
-	wield_scale = {x = 0.5, y = 0.5, z = 0.5},
-	mesh = "leaf.obj",
-	paramtype = "light",
-	waving = 2,
-})
+--~ minetest.override_item("default:pine_needles", {
+	--~ drawtype = "mesh",
+	--~ tiles = {"nodeboxtrees_pine_needles.png"},
+	--~ wield_scale = {x = 0.5, y = 0.5, z = 0.5},
+	--~ mesh = "leaf.obj",
+	--~ paramtype = "light",
+	--~ waving = 2,
+--~ })
 
-minetest.override_item("default:aspen_leaves", {
-	drawtype = "mesh",
-	tiles = {"nodeboxtrees_aspen_leaves.png"},
-	wield_scale = {x = 0.5, y = 0.5, z = 0.5},
-	mesh = "leaf.obj",
-	paramtype = "light",
-	waving = 2,
-})
+--~ minetest.override_item("default:aspen_leaves", {
+	--~ drawtype = "mesh",
+	--~ tiles = {"nodeboxtrees_aspen_leaves.png"},
+	--~ wield_scale = {x = 0.5, y = 0.5, z = 0.5},
+	--~ mesh = "leaf.obj",
+	--~ paramtype = "light",
+	--~ waving = 2,
+--~ })

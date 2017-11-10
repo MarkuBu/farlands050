@@ -71,7 +71,7 @@ local function register_snow_grass_decoration(offset, scale, length)
 		place_on = {"default:dirt_with_snow",},
 		sidelen = 16,
 		noise_params = {
-			offset = offset + grass_offset_modificator,
+			offset = offset + grass_offset_modificator / 5,
 			scale = scale,
 			spread = {x = 200, y = 200, z = 200},
 			seed = 329,
@@ -658,7 +658,7 @@ if mapgen.version > 4 then
 		place_offset_y = -1,
 		sidelen = 16,
 		noise_params = {
-			offset = 0.2,
+			offset = 0,
 			scale = 0.1,
 			spread = {x = 200, y = 200, z = 200},
 			seed = 23454,

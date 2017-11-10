@@ -4,6 +4,8 @@ mapgen.path = minetest.get_modpath("mapgen")
 dofile(mapgen.path.."/ores.lua")
 dofile(mapgen.path.."/biomes.lua")
 
+mapgen.register_farland_biomes()
+mapgen.register_farland_underground_biomes()
 local seaplants = false
 
 

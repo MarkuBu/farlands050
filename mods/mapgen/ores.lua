@@ -145,7 +145,7 @@ minetest.register_ore({
 	clust_scarcity  = 9 * 9 * 9,
 	clust_size      = 8,
 	y_min           = 0,
-	y_max           = 21,
+	y_max           = 200,
 	noise_threshold = 0.0,
 	noise_params    = {
 		offset = 0.5,
@@ -159,17 +159,17 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type        = "blob",
-	ore             = "mapgen:dirty_water_source",
-	wherein         = {"mapgen:dirt_with_swampgrass"},
+	ore             = "default:lava_source",
+	wherein         = {"default:silver_sand"},
 	clust_scarcity  = 9 * 9 * 9,
-	clust_size      = 5,
-	y_min           = 22,
-	y_max           = 40,
+	clust_size      = 14,
+	y_min           = 0,
+	y_max           = 15,
 	noise_threshold = 0.0,
 	noise_params    = {
-		offset = 0.5,
-		scale = 0.2,
-		spread = {x = 5, y = 5, z = 5},
+		offset = 0.01,
+		scale = 0.3,
+		spread = {x = 250, y = 250, z = 250},
 		seed = 766,
 		octaves = 1,
 		persist = 0.0

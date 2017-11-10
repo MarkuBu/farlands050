@@ -481,7 +481,7 @@ minetest.register_decoration({
 		octaves = 3,
 		persist = 0.66
 	},
-	biomes = {"swamp", "swamp_heights"},
+	biomes = {"swamp"},
 	y_min = 1,
 	y_max = 31000,
 	schematic = minetest.get_modpath("mapgen") .. "/schematics/willow2.mts",

@@ -2050,6 +2050,26 @@ function default.register_decorations()
 		param2 = 48,
 		param2_max = 96,
 	})
+--~ minetest.register_decoration({
+	--~ deco_type = "simple",
+	--~ place_on = "default:stone",
+	--~ sidelen = 8,
+	--~ fill_ratio = 5,
+	--~ noise_params = {
+		--~ offset = 0.2,
+		--~ scale = 0.01,
+		--~ spread = {x = 200, y = 200, z = 200},
+		--~ seed = 23454,
+		--~ octaves = 5,
+		--~ persist = 0.9
+	--~ },
+	--~ biomes = {"underground",},
+	--~ y_min = -31000,
+	--~ y_max = 31000,
+	--~ decoration = "default:torch",
+	--~ flags = "all_floors, all_ceilings",
+--~ })
+
 end
 
 

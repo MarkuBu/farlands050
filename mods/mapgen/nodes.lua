@@ -1,50 +1,50 @@
 
 --functions
 function mapgen.register_fern(name, desc, texnumber)
-minetest.register_node("mapgen:"..name, {
-	description = desc,
-	drawtype = "mesh",
-	mesh = "fern.b3d",
-	tiles = {
-		"mapgen_fern"..texnumber..".png",
-	},
-	paramtype = "light",
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.3, -0.5, -0.3, 0.3, 0.3, 0.3}
-	},
-	paramtype2 = "degrotate",
-	walkable = false,
-	buildable_to = true,
-	groups = {snappy = 3, oddly_breakable_by_hand = 1, flora = 1, flammable = 1},
-	sounds = default.node_sound_leaves_defaults()
-})
+	minetest.register_node("mapgen:"..name, {
+		description = desc,
+		drawtype = "mesh",
+		mesh = "fern.b3d",
+		tiles = {
+			"mapgen_fern"..texnumber..".png",
+		},
+		paramtype = "light",
+		selection_box = {
+			type = "fixed",
+			fixed = {-0.3, -0.5, -0.3, 0.3, 0.3, 0.3}
+		},
+		paramtype2 = "degrotate",
+		walkable = false,
+		buildable_to = true,
+		groups = {snappy = 3, oddly_breakable_by_hand = 1, flora = 1, flammable = 1},
+		sounds = default.node_sound_leaves_defaults()
+	})
 end
 
 function mapgen.register_shrub(name, desc, texnumber)
-minetest.register_node("mapgen:"..name, {
-	description = desc,
-	drawtype = "mesh",
-	mesh = "shrub.obj",
-	tiles = {
-		"mapgen_shrub"..texnumber..".png",
-	},
-	paramtype = "light",
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.3, -0.5, -0.3, 0.3, 0.3, 0.3}
-	},
-	on_construct = function(pos, node)
-		local node = minetest.get_node(pos)
-		node.param2 = math.random(0,179)
-	end,
-	paramtype2 = "degrotate",
-	visual_scale = 0.5,
-	walkable = false,
-	buildable_to = true,
-	groups = {snappy = 3, oddly_breakable_by_hand = 1, flora = 1, flammable = 1},
-	sounds = default.node_sound_leaves_defaults()
-})
+	minetest.register_node("mapgen:"..name, {
+		description = desc,
+		drawtype = "mesh",
+		mesh = "shrub.obj",
+		tiles = {
+			"mapgen_shrub"..texnumber..".png",
+		},
+		paramtype = "light",
+		selection_box = {
+			type = "fixed",
+			fixed = {-0.3, -0.5, -0.3, 0.3, 0.3, 0.3}
+		},
+		on_construct = function(pos, node)
+			local node = minetest.get_node(pos)
+			node.param2 = math.random(0,179)
+		end,
+		paramtype2 = "degrotate",
+		visual_scale = 0.5,
+		walkable = false,
+		buildable_to = true,
+		groups = {snappy = 3, oddly_breakable_by_hand = 1, flora = 1, flammable = 1},
+		sounds = default.node_sound_leaves_defaults()
+	})
 end
 
 --function nodes
@@ -2226,64 +2226,6 @@ minetest.register_craftitem("mapgen:crystal_shard", {
 	inventory_image = "mapgen_crystal_item.png"
 })
 
-
---~ --torch glow
---~ minetest.register_abm({
-	--~ nodenames = {"default:torch", "default:torch_ceiling",},
-	--~ interval = 5,
-	--~ chance = 1,
-	--~ action = function(pos, node)
-		--~ if minetest.get_timeofday() <= 0.6 and minetest.get_timeofday() >= 0.2 and pos.y >= -20 then
-		--~ return
-		--~ end
-		--~ minetest.add_particle({
-			--~ pos = {x=pos.x, y=pos.y+0.1, z=pos.z},
-			--~ velocity = {x=0, y=0, z=0},
-			--~ acceleration = {x=0, y=0, z=0},
-			--~ expirationtime = 5,
-			--~ size = 15,
-			--~ collisiondetection = false,
-			--~ collisionremoval = false,
-			--~ vertical = true,
-			--~ texture = "mapgen_glow.png",
-			--~ animation = {type = "vertical_frames", aspect_w = 32, aspect_h = 32, length = 0.20},
-			--~ glow = 9
-		--~ })
-	--~ end
---~ })
-
---~ minetest.register_abm({
-	--~ nodenames = {"default:torch_wall"},
-	--~ interval = 5,
-	--~ chance = 1,
-	--~ action = function(pos, node)
-		--~ if minetest.get_timeofday() <= 0.6 and minetest.get_timeofday() >= 0.2 and pos.y >= -20  then
-		--~ return
-		--~ end
-		--~ local dir = minetest.facedir_to_dir(node.param2)
-		--~ local particle_pos = {x=pos.x-0.22*dir.z*1.2, y=pos.y+0.1, z=pos.z-0.18*dir.x*1.2}
-		--~ if dir.x == 0 and dir.z == 0 then
-		--~ particle_pos = {x=pos.x, y=pos.y+0.1, z=pos.z+0.2}
-		--~ elseif dir.x == -1 and dir.z == 0 then
-		--~ particle_pos = {x=pos.x-0.15, y=pos.y+0.1, z=pos.z}
-		--~ elseif dir.x == 0 and dir.z == -1 then
-		--~ particle_pos = {x=pos.x+0.15, y=pos.y+0.1, z=pos.z}
-		--~ end
-		--~ minetest.add_particle({
-			--~ pos = particle_pos,
-			--~ velocity = {x=0, y=0, z=0},
-			--~ acceleration = {x=0, y=0, z=0},
-			--~ expirationtime = 5,
-			--~ size = 15,
-			--~ collisiondetection = false,
-			--~ collisionremoval = false,
-			--~ vertical = true,
-			--~ texture = "mapgen_glow.png",
-			--~ animation = {type = "vertical_frames", aspect_w = 32, aspect_h = 32, length = 0.20},
-			--~ glow = 9
-		--~ })
-	--~ end
---~ })
 
 --code taken from default
 

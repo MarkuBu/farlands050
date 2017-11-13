@@ -1,9 +1,8 @@
 
-function mapgen.register_farland_biomes()
-	minetest.clear_registered_biomes()
+function mapgen.register_farland_biomes(upper_limit)
 
-	local swamp_hp = 100
-	local swamp_hum = 93
+	local swamp_hp = 94
+	local swamp_hum = 91
 	local icesheet_hp = -17
 	local icesheet_hum = 64
 	local tundra_hp = 0
@@ -35,6 +34,7 @@ function mapgen.register_farland_biomes()
 	local rainforest_hp = 100
 	local rainforest_hum = 79
 
+
 	--Swamp
 	minetest.register_biome({
 		name = "swamp",
@@ -44,34 +44,35 @@ function mapgen.register_farland_biomes()
 		node_filler = "default:dirt",
 		depth_filler = 3,
 		--node_stone = "",
-		node_water_top = "mapgen:dirty_water_source",
-		depth_water_top = 1,
+		--~ node_water_top = "mapgen:dirty_water_source",
+		--~ depth_water_top = 1,
 		--node_water = "",
 		--node_river_water = "",
 		y_min = 1,
-		y_max = 31000,
+		y_max = 1000,
 		heat_point = swamp_hp,
 		humidity_point = swamp_hum,
 	})
 
-
 	minetest.register_biome({
 		name = "swamp_ocean",
-		--~ node_dust = "",
+		--node_dust = "",
 		node_top = "default:dirt",
 		depth_top = 1,
 		node_filler = "default:dirt",
 		depth_filler = 3,
 		--node_stone = "",
-		--~ node_water_top = "default:ice",
-		depth_water_top = 10,
-		--node_water = "",
+		--~ node_water_top = "mapgen:dirty_water_source",
+		--~ depth_water_top = 1,
+		--~ node_water = "mapgen:dirty_water_source",
 		--node_river_water = "",
 		y_min = -112,
 		y_max = 0,
 		heat_point = swamp_hp,
 		humidity_point = swamp_hum,
 	})
+
+
 	-- Icesheet
 
 	minetest.register_biome({
@@ -89,7 +90,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:gravel",
 		depth_riverbed = 2,
 		y_min = -8,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = icesheet_hp,
 		humidity_point = icesheet_hum,
 	})
@@ -114,13 +115,14 @@ function mapgen.register_farland_biomes()
 
 	-- Tundra
 
+
 	minetest.register_biome({
 		name = "tundra",
-		node_dust = "default:snowblock",
-		--node_top = ,
-		--depth_top = ,
-		--node_filler = ,
-		--depth_filler = ,
+		--node_dust = "default:snowblock",
+		--node_top = "default:dirt",
+		--depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 1,
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
@@ -129,7 +131,47 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:gravel",
 		depth_riverbed = 2,
 		y_min = 2,
-		y_max = 31000,
+		y_max = 20,
+		heat_point = tundra_hp,
+		humidity_point = tundra_hum,
+	})
+
+	minetest.register_biome({
+		name = "tundra_hills",
+		--node_dust = "default:snow",
+		--node_top = ,
+		--depth_top = ,
+		node_filler = "default:dirt",
+		depth_filler = 1,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		node_riverbed = "default:gravel",
+		depth_riverbed = 2,
+		y_min = 21,
+		y_max = 45,
+		heat_point = tundra_hp,
+		humidity_point = tundra_hum,
+	})
+
+	minetest.register_biome({
+		name = "tundra_mountains",
+		--node_dust = "default:snowblock",
+		--node_top = ,
+		--depth_top = ,
+		node_filler = "default:dirt",
+		depth_filler = 1,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		node_riverbed = "default:gravel",
+		depth_riverbed = 2,
+		y_min = 46,
+		y_max = upper_limit,
 		heat_point = tundra_hp,
 		humidity_point = tundra_hum,
 	})
@@ -142,8 +184,8 @@ function mapgen.register_farland_biomes()
 		node_filler = "default:gravel",
 		depth_filler = 2,
 		--node_stone = "",
-		--node_water_top = "",
-		--depth_water_top = ,
+		--node_water_top = "default:ice",
+		--depth_water_top = 1,
 		--node_water = "",
 		--node_river_water = "",
 		node_riverbed = "default:gravel",
@@ -191,7 +233,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 2,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = taiga_hp,
 		humidity_point = taiga_hum,
 	})
@@ -233,7 +275,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 2,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = snowy_grassland_hp,
 		humidity_point = snowy_grassland_hum,
 	})
@@ -275,7 +317,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 3,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = bamboo_forest_hp,
 		humidity_point = bamboo_forest_hum,
 	})
@@ -321,6 +363,45 @@ function mapgen.register_farland_biomes()
 	})
 
 	-- Grassland
+	minetest.register_biome({
+		name = "grassland_mountains",
+		node_dust = "default:snow",
+		node_top = "default:dirt_with_snow",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 3,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		node_riverbed = "default:sand",
+		depth_riverbed = 2,
+		y_min = 51,
+		y_max = upper_limit,
+		heat_point = grassland_hp,
+		humidity_point = grassland_hum,
+	})
+
+	minetest.register_biome({
+		name = "grassland_hills",
+		--node_dust = "",
+		node_top = "default:dirt_with_grass",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 3,
+		--node_stone = "",
+		--node_water_top = "",
+		--depth_water_top = ,
+		--node_water = "",
+		--node_river_water = "",
+		node_riverbed = "default:sand",
+		depth_riverbed = 2,
+		y_min = 21,
+		y_max = 50,
+		heat_point = grassland_hp,
+		humidity_point = grassland_hum,
+	})
 
 	minetest.register_biome({
 		name = "grassland",
@@ -337,7 +418,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 3,
-		y_max = 31000,
+		y_max = 20,
 		heat_point = grassland_hp,
 		humidity_point = grassland_hum,
 	})
@@ -399,7 +480,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 3,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = coniferous_forest_hp,
 		humidity_point = coniferous_forest_hum,
 	})
@@ -461,7 +542,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 3,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = coniferous_forest_tall_hp,
 		humidity_point = coniferous_forest_tall_hum,
 	})
@@ -524,7 +605,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 1,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = deciduous_forest_hp,
 		humidity_point = deciduous_forest_hum,
 	})
@@ -585,7 +666,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 1,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = deciduous_forest2_hp,
 		humidity_point = deciduous_forest2_hum,
 	})
@@ -647,7 +728,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 1,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = desert_hp,
 		humidity_point = desert_hum,
 	})
@@ -689,7 +770,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 5,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = sandstone_desert_hp,
 		humidity_point = sandstone_desert_hum,
 	})
@@ -731,7 +812,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 2,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = cold_desert_hp,
 		humidity_point = cold_desert_hum,
 	})
@@ -774,7 +855,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 1,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = savanna_hp,
 		humidity_point = savanna_hum,
 	})
@@ -831,12 +912,12 @@ function mapgen.register_farland_biomes()
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
-		node_water = "mapgen:dirty_water_source",
+		--~ node_water = "mapgen:dirty_water_source",
 		--node_river_water = "",
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = 1,
-		y_max = 31000,
+		y_max = upper_limit,
 		heat_point = rainforest_hp,
 		humidity_point = rainforest_hum,
 	})
@@ -851,11 +932,11 @@ function mapgen.register_farland_biomes()
 		--node_stone = "",
 		--node_water_top = "",
 		--depth_water_top = ,
-		--node_water = "",
+		--~ node_water = "mapgen:dirty_water_source",
 		--node_river_water = "",
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
-		y_min = -1,
+		y_min = -4,
 		y_max = 0,
 		heat_point = rainforest_hp,
 		humidity_point = rainforest_hum,
@@ -876,7 +957,7 @@ function mapgen.register_farland_biomes()
 		node_riverbed = "default:sand",
 		depth_riverbed = 2,
 		y_min = -112,
-		y_max = -2,
+		y_max = -5,
 		heat_point = rainforest_hp,
 		humidity_point = rainforest_hum,
 	})
@@ -902,7 +983,4 @@ function mapgen.register_farland_underground_biomes()
 		heat_point = 50,
 		humidity_point = 50,
 	})
-end
-
-function mapgen.register_farland_floatland_biomes()
 end

@@ -1,12 +1,9 @@
 
-mapgen.path = minetest.get_modpath("mapgen")
 
 dofile(mapgen.path.."/ores.lua")
 dofile(mapgen.path.."/biomes.lua")
-
-mapgen.register_farland_biomes()
-mapgen.register_farland_underground_biomes()
-local seaplants = false
+dofile(mapgen.path.."/decoration.lua")
+dofile(mapgen.path.."/floatland_biomes.lua")
 
 
 --
@@ -14,275 +11,7 @@ local seaplants = false
 --
 
 
-minetest.clear_registered_decorations()
 
-
---bamboo
-
-minetest.register_decoration({
-	deco_type = "simple",
-	place_on = "default:dirt_with_grass",
-	sidelen = 16,
-	noise_params = {
-			offset = 0.005,
-			scale = 0.01,
-			spread = {x = 250, y = 250, z = 250},
-			seed = 2,
-			octaves = 3,
-			persist = 0.66
-	},
-	fill_ratio = 0.05,
-	biomes = {"bamboo_forest",},
-	decoration = "mapgen:bamboo_small",
-	height = 3,
-})
-
-minetest.register_decoration({
-	deco_type = "simple",
-	place_on = "default:dirt_with_grass", "mapgen:dirt_with_leafygrass",
-	sidelen = 16,
-	noise_params = {
-			offset = 0.005,
-			scale = 0.01,
-			spread = {x = 250, y = 250, z = 250},
-			seed = 2,
-			octaves = 3,
-			persist = 0.66
-	},
-	biomes = {"bamboo_forest",},
-	decoration = "mapgen:bamboo_grass",
-	height = 1,
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:dirt_with_grass"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.016,
-		scale = 0.022,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"bamboo_forest",},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/bamboo1.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:dirt_with_grass"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.016,
-		scale = 0.022,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"bamboo_forest",},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/bamboo2.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:dirt_with_grass"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.016,
-		scale = 0.012,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"bamboo_forest",},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/bamboo5.mts",
-	flags = "place_center_x, place_center_z",
-})
-
---stone
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:dirt_with_grass"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.0005,
-		scale = 0.0005,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"coniferous_forest_tall"},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/savanna_rock1.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:dirt_with_grass"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.0005,
-		scale = 0.0005,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"coniferous_forest_tall"},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/savanna_rock2.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:dirt_with_grass"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.0005,
-		scale = 0.0005,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"coniferous_forest_tall"},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/savanna_rock3.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:dirt_with_grass"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.0005,
-		scale = 0.0005,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"deciduous_forest2", "grassland"},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/rock1.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:dirt_with_grass"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.0005,
-		scale = 0.0005,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"deciduous_forest2", "grassland"},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/rock2.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:dirt_with_grass"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.0005,
-		scale = 0.0005,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"deciduous_forest2", "grassland"},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/rock3.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:desert_sand"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.0005,
-		scale = 0.0005,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"desert",},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/desert_rock1.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:desert_sand"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.0005,
-		scale = 0.0005,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"desert",},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/desert_rock2.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = {"default:desert_sand"},
-	sidelen = 16,
-	noise_params = {
-		offset = 0.0005,
-		scale = 0.0005,
-		spread = {x = 250, y = 250, z = 250},
-		seed = 2,
-		octaves = 3,
-		persist = 0.66
-	},
-	biomes = {"desert",},
-	y_min = 1,
-	y_max = 31000,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/desert_rock3.mts",
-	flags = "place_center_x, place_center_z",
-})
 
 
 --~ minetest.register_on_generated(function(minp, maxp)
@@ -300,117 +29,6 @@ minetest.register_decoration({
 	--~ end
 --~ end)
 
---~ if seaplants then
---~ minetest.register_on_generated(function(minp, maxp)
-	--~ if maxp.y < -100 or maxp.y > 100 then
-		--~ return
-	--~ end
-	--~ local dirt = minetest.find_nodes_in_area(minp, maxp,
-		--~ {"default:sand"})
-	--~ for n = 1, #dirt do
-		--~ if math.random(1, 50) == 1 then
-			--~ local pos = {x = dirt[n].x, y = dirt[n].y, z = dirt[n].z }
-				--~ if minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name == "default:water_source" and minetest.get_node({x=pos.x, y=pos.y+3, z=pos.z}).name ~= "air" then
-					--~ if math.random(1,4) == 1 then
-					--~ minetest.add_node({x=pos.x, y=pos.y+1, z=pos.z}, {name = "mapgen:red_coral"})
-					--~ elseif math.random(1,4) == 1 then
-					--~ minetest.add_node({x=pos.x, y=pos.y+1, z=pos.z}, {name = "mapgen:big_coral"})
-					--~ elseif math.random(1,3) == 1 then
-					--~ minetest.add_node({x=pos.x, y=pos.y+1, z=pos.z}, {name = "mapgen:anemone"})
-					--~ elseif math.random(1,3) == 1 then
-					--~ minetest.add_node({x=pos.x, y=pos.y+1, z=pos.z}, {name = "mapgen:blue_coral"})
-					--~ else
-					--~ minetest.add_node({x=pos.x, y=pos.y+1, z=pos.z}, {name = "mapgen:orange_coral"})
-					--~ end
-				--~ end
-		--~ end
-		--~ if math.random(1, 20) == 1 then
-			--~ local pos = {x = dirt[n].x, y = dirt[n].y, z = dirt[n].z }
-			--~ local num = math.random(1,2)
-				--~ if minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name == "default:water_source" and minetest.get_node({x=pos.x, y=pos.y+3, z=pos.z}).name ~= "air" then
-					--~ if math.random(1,1) == 1 then
-					--~ minetest.add_node({x=pos.x, y=pos.y+1, z=pos.z}, {name = "mapgen:kelp"..num})
-						--~ if math.random(1,2) == 1 and minetest.get_node({x=pos.x, y=pos.y+4, z=pos.z}).name ~= "air" then
-						--~ minetest.add_node({x=pos.x, y=pos.y+2, z=pos.z}, {name = "mapgen:kelp"..num})
-							--~ if math.random(1,2) == 1 and minetest.get_node({x=pos.x, y=pos.y+5, z=pos.z}).name ~= "air" then
-							--~ minetest.add_node({x=pos.x, y=pos.y+3, z=pos.z}, {name = "mapgen:kelp"..num})
-								--~ if math.random(1,2) == 1 and minetest.get_node({x=pos.x, y=pos.y+6, z=pos.z}).name ~= "air" then
-								--~ minetest.add_node({x=pos.x, y=pos.y+4, z=pos.z}, {name = "mapgen:kelp"..num})
-									--~ if math.random(1,2) == 1 and minetest.get_node({x=pos.x, y=pos.y+7, z=pos.z}).name ~= "air" then
-									--~ minetest.add_node({x=pos.x, y=pos.y+5, z=pos.z}, {name = "mapgen:kelp"..num})
-									--~ end
-								--~ end
-							--~ end
-						--~ end
-					--~ end
-				--~ end
-		--~ end
-	--~ end
---~ end)
---~ end
-
---~ minetest.register_on_generated(function(minp, maxp)
-	--~ if maxp.y < -1000 or maxp.y > 10 then
-		--~ return
-	--~ end
-	--~ local dirt = minetest.find_nodes_in_area(minp, maxp,
-		--~ {"default:stone"})
-	--~ for n = 1, #dirt do
-		--~ if math.random(1, 50) == 1 then
-			--~ local pos = {x = dirt[n].x, y = dirt[n].y, z = dirt[n].z }
-				--~ if minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name == "air" then
-					--~ if math.random(1,2) == 1 then
-					--~ minetest.add_node({x=pos.x, y=pos.y-1, z=pos.z}, {name = "mapgen:stalagtite"})
-					--~ elseif math.random(1,2) == 1 then
-					--~ minetest.add_node({x=pos.x, y=pos.y-1, z=pos.z}, {name = "mapgen:stalagtite1"})
-					--~ elseif math.random(1,2) == 1 then
-					--~ minetest.add_node({x=pos.x, y=pos.y-1, z=pos.z}, {name = "mapgen:stalagtite2"})
-					--~ else
-					--~ minetest.add_node({x=pos.x, y=pos.y-1, z=pos.z}, {name = "mapgen:stalagtite3"})
-					--~ end
-				--~ end
-		--~ end
-	--~ end
---~ end)
-
---~ minetest.register_on_generated(function(minp, maxp)
-	--~ if maxp.y < -500 or maxp.y > 100 then
-		--~ return
-	--~ end
-	--~ local dirt = minetest.find_nodes_in_area(minp, maxp,
-		--~ {"default:stone"})
-	--~ for n = 1, #dirt do
-		--~ if math.random(1, 50) == 1 then
-			--~ local pos = {x = dirt[n].x, y = dirt[n].y, z = dirt[n].z }
-				--~ if minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name == "air" then
-					--~ local num = math.random(1,2)
-					--~ minetest.add_node({x=pos.x, y=pos.y-1, z=pos.z}, {name = "mapgen:cavefern"..num})
-				--~ end
-		--~ end
-	--~ end
---~ end)
-
---~ minetest.register_on_generated(function(minp, maxp)
-	--~ if maxp.y < -1000 or maxp.y > 20 then
-		--~ return
-	--~ end
-	--~ local dirt = minetest.find_nodes_in_area(minp, maxp,
-		--~ {"default:stone"})
-	--~ for n = 1, #dirt do
-		--~ if math.random(1, 50) == 1 then
-			--~ local pos = {x = dirt[n].x, y = dirt[n].y, z = dirt[n].z }
-				--~ if minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name == "air" and pos.y >= -100 then
-					--~ if math.random(1,2) == 1 then
-					--~ minetest.add_node({x=pos.x, y=pos.y+1, z=pos.z}, {name = "mapgen:stalagmite0"})
-					--~ elseif math.random(1,2) == 1 then
-					--~ minetest.add_node({x=pos.x, y=pos.y+1, z=pos.z}, {name = "mapgen:stalagmite1"})
-					--~ else
-					--~ minetest.add_node({x=pos.x, y=pos.y+1, z=pos.z}, {name = "mapgen:stalagmite2"})
-					--~ end
-				--~ end
-		--~ end
-	--~ end
---~ end)
 
 --underground dungeons
 
@@ -435,8 +53,61 @@ minetest.register_decoration({
 	--~ end
 --~ end)
 
-dofile(mapgen.path.."/trees.lua")
-dofile(mapgen.path.."/plants.lua")
+
+
+--
+-- Detect mapgen, flags and parameters to select functions
+--
+
+-- Get setting or default
+local mgv7_spflags = minetest.get_mapgen_setting("mgv7_spflags") or
+	"mountains, ridges, floatlands, caverns"
+local captures_float = string.match(mgv7_spflags, "floatlands")
+local captures_nofloat = string.match(mgv7_spflags, "nofloatlands")
+
+-- Get setting or default
+-- Make global for mods to use to register floatland biomes
+default.mgv7_floatland_level =
+	minetest.get_mapgen_setting("mgv7_floatland_level") or 1280
+default.mgv7_shadow_limit =
+	minetest.get_mapgen_setting("mgv7_shadow_limit") or 1024
+
+minetest.clear_registered_biomes()
+minetest.clear_registered_ores()
+minetest.clear_registered_decorations()
+
+local mg_name = minetest.get_mapgen_setting("mg_name")
+
+if mg_name == "v6" then
+	default.register_mgv6_ores()
+	default.register_mgv6_decorations()
+-- Need to check for 'nofloatlands' because that contains
+-- 'floatlands' which makes the second condition true.
+elseif mg_name == "v7" and
+		captures_float == "floatlands" and
+		captures_nofloat ~= "nofloatlands" then
+	-- Mgv7 with floatlands and floatland biomes
+	mapgen.register_farland_biomes(default.mgv7_shadow_limit - 1)
+
+	local i
+	mapgen.biome_ids = {}
+	for name, desc in pairs(minetest.registered_biomes) do
+		i = minetest.get_biome_id(desc.name)
+		mapgen.biome_ids[i] = desc.name
+		--~ print(desc.name, i)
+	end
+
+
+	mapgen.register_ores(default.mgv7_shadow_limit - 1)
+	mapgen.register_decorations(default.mgv7_shadow_limit - 1)
+
+	mapgen.register_floatland_biomes(
+		default.mgv7_floatland_level, default.mgv7_shadow_limit)
+else
+	default.register_biomes(31000)
+	default.register_ores()
+	default.register_decorations()
+end
 
 --fruit
 if minetest.get_modpath("fruit") then

@@ -650,6 +650,22 @@ minetest.register_node("mapgen:moss", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
+minetest.register_node("mapgen:lichen", {
+	description = "Lichen",
+	drawtype = "nodebox",
+	tiles = {"mapgen_lichen.png"},
+	paramtype = "light",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4, 0.5},
+		}
+	},
+	buildable_to = true,
+	groups = {snappy = 3, oddly_breakable_by_hand=1, dig_immediate=3},
+	sounds = default.node_sound_leaves_defaults(),
+})
+
 --plantlike (PLNT02)
 
 minetest.register_node("mapgen:tallgrass", {
@@ -1535,102 +1551,6 @@ minetest.register_node("mapgen:dead_grass_5", {
 
 --underwater (WATR01)
 
-minetest.register_node("mapgen:big_coral", {
-	description = "Big Pink Coral",
-	drawtype = "plantlike",
-	visual_scale = 2,
-	tiles = {"mapgen_big_coral.png"},
-	paramtype = "light",
-	is_ground_content = false,
-	buildable_to = true,
-	sunlight_propagates = true,
-	waving = 1,
-	inventory_image = "mapgen_big_coral.png",
-	groups = {snappy=3, flammable=1, attatched_node=1, sea=1},
-	sounds = default.node_sound_leaves_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
-	},
-	walkable = false,
-})
-
-minetest.register_node("mapgen:red_coral", {
-	description = "Pink Coral",
-	drawtype = "plantlike",
-	tiles = {"mapgen_pink_coral.png"},
-	paramtype = "light",
-	is_ground_content = false,
-	buildable_to = true,
-	sunlight_propagates = true,
-	waving = 1,
-	inventory_image = "mapgen_pink_coral.png",
-	groups = {snappy=3, flammable=1, attatched_node=1, sea=1},
-	sounds = default.node_sound_leaves_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
-	},
-	walkable = false,
-})
-
-minetest.register_node("mapgen:orange_coral", {
-	description = "Orange Coral",
-	drawtype = "plantlike",
-	tiles = {"mapgen_orange_coral.png"},
-	paramtype = "light",
-	is_ground_content = false,
-	buildable_to = true,
-	sunlight_propagates = true,
-	waving = 1,
-	inventory_image = "mapgen_orange_coral.png",
-	groups = {snappy=3, flammable=1, attatched_node=1, sea=1},
-	sounds = default.node_sound_leaves_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
-	},
-	walkable = false,
-})
-
-minetest.register_node("mapgen:blue_coral", {
-	description = "Blue Coral",
-	drawtype = "plantlike",
-	tiles = {"mapgen_blue_coral.png"},
-	paramtype = "light",
-	is_ground_content = false,
-	buildable_to = true,
-	sunlight_propagates = true,
-	waving = 1,
-	inventory_image = "mapgen_blue_coral.png",
-	groups = {snappy=3, flammable=1, attatched_node=1, sea=1},
-	sounds = default.node_sound_leaves_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
-	},
-	walkable = false,
-})
-
-minetest.register_node("mapgen:anemone", {
-	description = "Anemone",
-	drawtype = "plantlike",
-	tiles = {"mapgen_anemone.png"},
-	paramtype = "light",
-	is_ground_content = false,
-	buildable_to = true,
-	sunlight_propagates = true,
-	waving = 1,
-	inventory_image = "mapgen_anemone.png",
-	groups = {snappy=3, flammable=1, attatched_node=1, sea=1},
-	sounds = default.node_sound_leaves_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
-	},
-	walkable = false,
-})
-
 --stone (STN02)
 
 minetest.register_node("mapgen:stone_with_ammonite", {
@@ -2166,7 +2086,7 @@ minetest.register_node("mapgen:glowing_mushroom_white", {
 -- only supported by Minetest 0.5
 if mapgen.version > 4 then
 	minetest.register_node("mapgen:sand_with_sea_grass", {
-		description = "Stone With Sea Grass",
+		description = "Sand With Sea Grass",
 		drawtype = "plantlike_rooted",
 		--~ tiles = {"mapgen_sea_grass.png", "default_stone.png",
 				--~ {name = "default_stone.png^mapgen_sea_grass_side.png",
@@ -2316,4 +2236,253 @@ if mapgen.version > 4 then
 			return itemstack
 		end
 	})
+
+
+	minetest.register_node("mapgen:big_coral", {
+		description = "Big Pink Coral",
+		drawtype = "plantlike_rooted",
+		tiles = {"default_sand.png"},
+		special_tiles = {{name = "mapgen_big_coral.png", tileable_vertical = true}},
+		inventory_image = "mapgen_big_coral.png",
+		paramtype2 = "leveled",
+		groups = {snappy = 3},
+		node_placement_prediction = "",
+		waving = 1,
+		visual_scale = 2,
+		on_place = function(itemstack, placer, pointed_thing)
+			-- Call on_rightclick if the pointed node defines it
+			if pointed_thing.type == "node" and placer and
+					not placer:get_player_control().sneak then
+				local node_ptu = minetest.get_node(pointed_thing.under)
+				local def_ptu = minetest.registered_nodes[node_ptu.name]
+				if def_ptu and def_ptu.on_rightclick then
+					return def_ptu.on_rightclick(pointed_thing.under, node_ptu, placer,
+						itemstack, pointed_thing)
+				end
+			end
+
+			local pos = pointed_thing.above
+			local height = math.random(4, 6)
+			local pos_top = {x = pos.x, y = pos.y + height, z = pos.z}
+			local node_top = minetest.get_node(pos_top)
+			local def_top = minetest.registered_nodes[node_top.name]
+			local player_name = placer:get_player_name()
+
+			if def_top and def_top.liquidtype == "source" and
+					minetest.get_item_group(node_top.name, "water") > 0 then
+				if not minetest.is_protected(pos, player_name) and
+						not minetest.is_protected(pos_top, player_name) then
+					minetest.set_node(pos, {name = "mapgen:big_coral",
+						param2 = height * 16})
+					if not (creative and creative.is_enabled_for
+							and creative.is_enabled_for(player_name)) then
+						itemstack:take_item()
+					end
+				else
+					minetest.chat_send_player(player_name, "Node is protected")
+					minetest.record_protection_violation(pos, player_name)
+				end
+			end
+
+			return itemstack
+		end
+	})
+
+
+	minetest.register_node("mapgen:red_coral", {
+		description = "Pink Coral",
+		drawtype = "plantlike_rooted",
+		tiles = {"default_sand.png"},
+		special_tiles = {{name = "mapgen_red_coral.png", tileable_vertical = true}},
+		inventory_image = "mapgen_red_coral.png",
+		paramtype2 = "leveled",
+		groups = {snappy = 3},
+		node_placement_prediction = "",
+		waving = 1,
+		on_place = function(itemstack, placer, pointed_thing)
+			-- Call on_rightclick if the pointed node defines it
+			if pointed_thing.type == "node" and placer and
+					not placer:get_player_control().sneak then
+				local node_ptu = minetest.get_node(pointed_thing.under)
+				local def_ptu = minetest.registered_nodes[node_ptu.name]
+				if def_ptu and def_ptu.on_rightclick then
+					return def_ptu.on_rightclick(pointed_thing.under, node_ptu, placer,
+						itemstack, pointed_thing)
+				end
+			end
+
+			local pos = pointed_thing.above
+			local height = math.random(4, 6)
+			local pos_top = {x = pos.x, y = pos.y + height, z = pos.z}
+			local node_top = minetest.get_node(pos_top)
+			local def_top = minetest.registered_nodes[node_top.name]
+			local player_name = placer:get_player_name()
+
+			if def_top and def_top.liquidtype == "source" and
+					minetest.get_item_group(node_top.name, "water") > 0 then
+				if not minetest.is_protected(pos, player_name) and
+						not minetest.is_protected(pos_top, player_name) then
+					minetest.set_node(pos, {name = "mapgen:red_coral",
+						param2 = height * 16})
+					if not (creative and creative.is_enabled_for
+							and creative.is_enabled_for(player_name)) then
+						itemstack:take_item()
+					end
+				else
+					minetest.chat_send_player(player_name, "Node is protected")
+					minetest.record_protection_violation(pos, player_name)
+				end
+			end
+
+			return itemstack
+		end
+	})
+
+	minetest.register_node("mapgen:orange_coral", {
+		description = "Orange Coral",
+		drawtype = "plantlike_rooted",
+		tiles = {"default_sand.png"},
+		special_tiles = {{name = "mapgen_orange_coral.png", tileable_vertical = true}},
+		inventory_image = "mapgen_orange_coral.png",
+		paramtype2 = "leveled",
+		groups = {snappy = 3},
+		node_placement_prediction = "",
+		waving = 1,
+		on_place = function(itemstack, placer, pointed_thing)
+			-- Call on_rightclick if the pointed node defines it
+			if pointed_thing.type == "node" and placer and
+					not placer:get_player_control().sneak then
+				local node_ptu = minetest.get_node(pointed_thing.under)
+				local def_ptu = minetest.registered_nodes[node_ptu.name]
+				if def_ptu and def_ptu.on_rightclick then
+					return def_ptu.on_rightclick(pointed_thing.under, node_ptu, placer,
+						itemstack, pointed_thing)
+				end
+			end
+
+			local pos = pointed_thing.above
+			local height = math.random(4, 6)
+			local pos_top = {x = pos.x, y = pos.y + height, z = pos.z}
+			local node_top = minetest.get_node(pos_top)
+			local def_top = minetest.registered_nodes[node_top.name]
+			local player_name = placer:get_player_name()
+
+			if def_top and def_top.liquidtype == "source" and
+					minetest.get_item_group(node_top.name, "water") > 0 then
+				if not minetest.is_protected(pos, player_name) and
+						not minetest.is_protected(pos_top, player_name) then
+					minetest.set_node(pos, {name = "mapgen:orange_coral",
+						param2 = height * 16})
+					if not (creative and creative.is_enabled_for
+							and creative.is_enabled_for(player_name)) then
+						itemstack:take_item()
+					end
+				else
+					minetest.chat_send_player(player_name, "Node is protected")
+					minetest.record_protection_violation(pos, player_name)
+				end
+			end
+
+			return itemstack
+		end
+	})
+
+	minetest.register_node("mapgen:blue_coral", {
+		description = "Blue Coral",
+		drawtype = "plantlike_rooted",
+		tiles = {"default_sand.png"},
+		special_tiles = {{name = "mapgen_blue_coral.png", tileable_vertical = true}},
+		inventory_image = "mapgen_blue_coral.png",
+		paramtype2 = "leveled",
+		groups = {snappy = 3},
+		node_placement_prediction = "",
+		waving = 1,
+		on_place = function(itemstack, placer, pointed_thing)
+			-- Call on_rightclick if the pointed node defines it
+			if pointed_thing.type == "node" and placer and
+					not placer:get_player_control().sneak then
+				local node_ptu = minetest.get_node(pointed_thing.under)
+				local def_ptu = minetest.registered_nodes[node_ptu.name]
+				if def_ptu and def_ptu.on_rightclick then
+					return def_ptu.on_rightclick(pointed_thing.under, node_ptu, placer,
+						itemstack, pointed_thing)
+				end
+			end
+
+			local pos = pointed_thing.above
+			local height = math.random(4, 6)
+			local pos_top = {x = pos.x, y = pos.y + height, z = pos.z}
+			local node_top = minetest.get_node(pos_top)
+			local def_top = minetest.registered_nodes[node_top.name]
+			local player_name = placer:get_player_name()
+
+			if def_top and def_top.liquidtype == "source" and
+					minetest.get_item_group(node_top.name, "water") > 0 then
+				if not minetest.is_protected(pos, player_name) and
+						not minetest.is_protected(pos_top, player_name) then
+					minetest.set_node(pos, {name = "mapgen:blue_coral",
+						param2 = height * 16})
+					if not (creative and creative.is_enabled_for
+							and creative.is_enabled_for(player_name)) then
+						itemstack:take_item()
+					end
+				else
+					minetest.chat_send_player(player_name, "Node is protected")
+					minetest.record_protection_violation(pos, player_name)
+				end
+			end
+
+			return itemstack
+		end
+	})
+
+	minetest.register_node("mapgen:anemone", {
+		description = "Anemone",
+		drawtype = "plantlike_rooted",
+		tiles = {"default_sand.png"},
+		special_tiles = {{name = "mapgen_anemone.png", tileable_vertical = true}},
+		inventory_image = "mapgen_anemone.png",
+		paramtype2 = "leveled",
+		groups = {snappy = 3},
+		node_placement_prediction = "",
+		waving = 1,
+		on_place = function(itemstack, placer, pointed_thing)
+			-- Call on_rightclick if the pointed node defines it
+			if pointed_thing.type == "node" and placer and
+					not placer:get_player_control().sneak then
+				local node_ptu = minetest.get_node(pointed_thing.under)
+				local def_ptu = minetest.registered_nodes[node_ptu.name]
+				if def_ptu and def_ptu.on_rightclick then
+					return def_ptu.on_rightclick(pointed_thing.under, node_ptu, placer,
+						itemstack, pointed_thing)
+				end
+			end
+
+			local pos = pointed_thing.above
+			local height = math.random(4, 6)
+			local pos_top = {x = pos.x, y = pos.y + height, z = pos.z}
+			local node_top = minetest.get_node(pos_top)
+			local def_top = minetest.registered_nodes[node_top.name]
+			local player_name = placer:get_player_name()
+
+			if def_top and def_top.liquidtype == "source" and
+					minetest.get_item_group(node_top.name, "water") > 0 then
+				if not minetest.is_protected(pos, player_name) and
+						not minetest.is_protected(pos_top, player_name) then
+					minetest.set_node(pos, {name = "mapgen:anemone",
+						param2 = height * 16})
+					if not (creative and creative.is_enabled_for
+							and creative.is_enabled_for(player_name)) then
+						itemstack:take_item()
+					end
+				else
+					minetest.chat_send_player(player_name, "Node is protected")
+					minetest.record_protection_violation(pos, player_name)
+				end
+			end
+
+			return itemstack
+		end
+	})
+
 end

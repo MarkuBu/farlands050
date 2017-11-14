@@ -594,24 +594,24 @@ function mapgen.register_ores(upper_limit)
 		y_max          = upper_limit,
 	})
 
-	--~ minetest.register_ore({
-		--~ ore_type        = "stratum",
-		--~ ore             = "default:glass",
-		--~ wherein         = {"default:stone"},
-		--~ y_min           = 0,
-		--~ y_max           = 100,
-		--~ noise_threshold = 0.1,
-		--~ np_stratum_thickness = 1,
-		--~ clust_scarcity = 1,
-		--~ noise_params    = {
-			--~ offset = 0.005,
-			--~ scale = 0.002,
-			--~ spread = {x = 20, y = 20, z = 20},
-			--~ seed = 424,
-			--~ octaves = 1,
-			--~ persist = 0.0
-		--~ },
-		--~ biomes = {"tundra_hills", "tundra", "tundra_mountains"}
-	--~ })
+--~ minetest.register_ore({
+	--~ ore_type        = "stratum",
+	--~ ore             = "default:glass",
+	--~ wherein         = {"default:stone"},
+	--~ y_min           = -200,
+	--~ y_max           = -113,
+	--~ noise_threshold = 0.1,
+	--~ np_stratum_thickness = 1,
+	--~ clust_scarcity = 1,
+	--~ noise_params    = {
+		--~ offset = 0.005,
+		--~ scale = 0.002,
+		--~ spread = {x = 20, y = 20, z = 20},
+		--~ seed = 424,
+		--~ octaves = 1,
+		--~ persist = 0.0
+	--~ },
+	--~ biomes = {"underground"}
+--~ })
 
 end

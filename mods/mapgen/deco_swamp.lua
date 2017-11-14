@@ -61,18 +61,115 @@ minetest.register_decoration({
 		persist = 0.66
 	},
 	biomes = {"swamp"},
-	y_min = 2,
-	y_max = 1111,
-	schematic = minetest.get_modpath("mapgen") .. "/schematics/willow2.mts",
+	y_min = 1,
+	y_max = 10,
+	--schematic = minetest.get_modpath("mapgen") .. "/schematics/willow2.mts",
+	schematic = mapgen.willow2,
+	flags = "place_center_x, place_center_z",
+})
+
+minetest.register_decoration({
+	deco_type = "schematic",
+	place_on = {"mapgen:dirt_with_swampgrass"},
+	sidelen = 16,
+	noise_params = {
+		offset = 0.0025,
+		scale = 0.001,
+		spread = {x = 250, y = 250, z = 250},
+		seed = 2,
+		octaves = 3,
+		persist = 0.66
+	},
+	biomes = {"swamp_hills"},
+	y_min = 11,
+	y_max = 100,
+	--schematic = minetest.get_modpath("mapgen") .. "/schematics/willow2.mts",
+	schematic = mapgen.willow2,
 	flags = "place_center_x, place_center_z",
 })
 
 -- Plants
 
+local function register_swamp_grass_decoration(offset, scale, length, biomes)
+	minetest.register_decoration({
+		deco_type = "simple",
+		place_on = {"mapgen:dirt_with_swampgrass", "default:dirt"},
+		sidelen = 16,
+		noise_params = {
+			offset = offset,
+			scale = scale,
+			spread = {x = 200, y = 200, z = 200},
+			seed = 329,
+			octaves = 3,
+			persist = 0.6
+		},
+		biomes = biomes,
+		y_min = 0,
+		y_max = upper_limit,
+		decoration = "mapgen:swamp_grass_" .. length,
+	})
+end
+
+	--Swamp grasses
+
+register_swamp_grass_decoration(-0.03,  0.09,  5, {"swamp"})
+register_swamp_grass_decoration(-0.015, 0.075, 4, {"swamp"})
+register_swamp_grass_decoration(0,      0.06,  3, {"swamp"})
+register_swamp_grass_decoration(0.015,  0.045, 2, {"swamp"})
+register_swamp_grass_decoration(0.03,   0.03,  1, {"swamp"})
+register_swamp_grass_decoration(-0.02,  0.09,  5, {"swamp_hills"})
+register_swamp_grass_decoration(-0.01,  0.075, 4, {"swamp_hills"})
+register_swamp_grass_decoration(0.5,    0.06,  3, {"swamp_hills"})
+register_swamp_grass_decoration(0.02,   0.045, 2, {"swamp_hills"})
+register_swamp_grass_decoration(0.035,  0.03,  1, {"swamp_hills"})
+
+--giant grass
+
+minetest.register_decoration({
+	deco_type = "simple",
+	place_on = "mapgen:dirt_with_swampgrass",
+	sidelen = 16,
+	fill_ratio = 0.1,
+	biomes = {"swamp"},
+	decoration = "mapgen:giantgrass",
+	height = 1,
+})
+
+minetest.register_decoration({
+	deco_type = "simple",
+	place_on = "mapgen:dirt_with_swampgrass",
+	sidelen = 16,
+	fill_ratio = 0.2,
+	biomes = {"swamp_hills"},
+	decoration = "mapgen:giantgrass",
+	height = 1,
+})
+
+minetest.register_decoration({
+	deco_type = "simple",
+	place_on = "mapgen:dirt_with_swampgrass",
+	sidelen = 16,
+	fill_ratio = 0.02,
+	biomes = {"swamp"},
+	decoration = "mapgen:lavender_flower",
+	height = 1,
+})
+
+minetest.register_decoration({
+	deco_type = "simple",
+	place_on = "mapgen:dirt_with_swampgrass",
+	sidelen = 16,
+	fill_ratio = 0.03,
+	biomes = {"swamp_hills"},
+	decoration = "mapgen:lavender_flower",
+	height = 1,
+})
+
 -- Decoration
 
 
-local willow_schematic = minetest.get_modpath("mapgen") .. "/schematics/willow2.mts"
+--local willow_schematic = minetest.get_modpath("mapgen") .. "/schematics/willow2.mts"
+local willow_schematic = mapgen.willow2
 
 minetest.register_on_generated(function(minp, maxp)
 	if minp.y ~= -32 then

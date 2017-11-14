@@ -2,6 +2,7 @@
 
 dofile(mapgen.path.."/ores.lua")
 dofile(mapgen.path.."/biomes.lua")
+dofile(mapgen.path.."/schematics/lua_schematics.lua")
 dofile(mapgen.path.."/decoration.lua")
 dofile(mapgen.path.."/floatland_biomes.lua")
 

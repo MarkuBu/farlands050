@@ -37,6 +37,24 @@ function mapgen.register_farland_biomes(upper_limit)
 
 	--Swamp
 	minetest.register_biome({
+		name = "swamp_hills",
+		--node_dust = "",
+		node_top = "mapgen:dirt_with_swampgrass",
+		depth_top = 1,
+		node_filler = "default:dirt",
+		depth_filler = 3,
+		--node_stone = "",
+		--~ node_water_top = "mapgen:dirty_water_source",
+		--~ depth_water_top = 1,
+		--node_water = "",
+		--node_river_water = "",
+		y_min = 11,
+		y_max = 1000,
+		heat_point = swamp_hp,
+		humidity_point = swamp_hum,
+	})
+
+	minetest.register_biome({
 		name = "swamp",
 		--node_dust = "",
 		node_top = "mapgen:dirt_with_swampgrass",
@@ -49,7 +67,7 @@ function mapgen.register_farland_biomes(upper_limit)
 		--node_water = "",
 		--node_river_water = "",
 		y_min = 1,
-		y_max = 1000,
+		y_max = 10,
 		heat_point = swamp_hp,
 		humidity_point = swamp_hum,
 	})

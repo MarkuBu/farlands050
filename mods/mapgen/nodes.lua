@@ -2082,6 +2082,12 @@ minetest.register_node("mapgen:glowing_mushroom_white", {
 	walkable = false,
 })
 
+default.register_leafdecay({
+	trunks = {"mapgen:willow_tree"},
+	leaves = {"mapgen:willow_leaves"},
+	radius = 3,
+})
+
 
 -- only supported by Minetest 0.5
 if mapgen.version > 4 then

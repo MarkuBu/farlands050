@@ -114,7 +114,7 @@ function mapgen.register_decorations(upper_limit)
 				octaves = 3,
 				persist = 0.6
 			},
-			biomes = {"rainforest_swamp", "rainforest", "swamp"},
+			biomes = {"rainforest_swamp", "rainforest"},
 			y_min = 0,
 			y_max = upper_limit,
 			decoration = "mapgen:swamp_grass_" .. length,
@@ -318,18 +318,6 @@ function mapgen.register_decorations(upper_limit)
 		height = 1,
 	})
 
-	--giant grass
-
-	minetest.register_decoration({
-		deco_type = "simple",
-		place_on = "mapgen:dirt_with_swampgrass",
-		sidelen = 16,
-		fill_ratio = 0.1,
-		biomes = {"swamp"},
-		decoration = "mapgen:giantgrass",
-		height = 1,
-	})
-
 	--pineapple
 	minetest.register_decoration({
 		deco_type = "simple",
@@ -477,16 +465,6 @@ function mapgen.register_decorations(upper_limit)
 		fill_ratio = 0.02,
 		biomes = {"rainforest",},
 		decoration = "mapgen:flame_lily",
-		height = 1,
-	})
-
-	minetest.register_decoration({
-		deco_type = "simple",
-		place_on = "mapgen:dirt_with_swampgrass",
-		sidelen = 16,
-		fill_ratio = 0.02,
-		biomes = {"swamp"},
-		decoration = "mapgen:lavender_flower",
 		height = 1,
 	})
 
@@ -1568,7 +1546,8 @@ function mapgen.register_decorations(upper_limit)
 		biomes = {"deciduous_forest", "grassland_hills"},
 		y_min = 1,
 		y_max = upper_limit,
-		schematic = minetest.get_modpath("mapgen") .. "/schematics/oak.mts",
+		--schematic = minetest.get_modpath("mapgen") .. "/schematics/oak.mts",
+		schematic = mapgen.oak,
 		flags = "place_center_x, place_center_z",
 	})
 
@@ -1584,10 +1563,11 @@ function mapgen.register_decorations(upper_limit)
 			octaves = 3,
 			persist = 0.66
 		},
-		biomes = {"deciduous_forest",},
+		biomes = {"deciduous_forest", "grassland_hills"},
 		y_min = 1,
 		y_max = upper_limit,
-		schematic = minetest.get_modpath("mapgen") .. "/schematics/oak_s.mts",
+		--schematic = minetest.get_modpath("mapgen") .. "/schematics/oak_s.mts",
+		schematic = mapgen.oak_s,
 		flags = "place_center_x, place_center_z",
 	})
 
